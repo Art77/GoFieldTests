@@ -2,6 +2,7 @@
 
 Translations:
 
+* [English](README.md)
 * [한국어 문서](README_ko.md)
 * [简体中文](README_zh.md)
 * [正體中文](README_zh-TW.md)
@@ -17,149 +18,147 @@ Translations:
 
 ## Overview
 
-This is a basic layout for Go application projects. It's **`not an official standard defined by the core Go dev team`**; however, it is a set of common historical and emerging project layout patterns in the Go ecosystem. Some of these patterns are more popular than others. It also has a number of small enhancements along with several supporting directories common to any large enough real world application.
+Это базовый макет организации проектов, разработанных на Golang. Это не официально определенный командой разработчиков Golang стандарт, однако он удовлетворяет исторически сложившимся шаблонам организации проекта в экосистеме Golang. Некоторые из шаблонов могут быть известнее остальных. В макете также присутствуют несколько улучшений, включая дополнительные директории, используемые в любом достаточно большом реальном приложении.
 
-**`If you are trying to learn Go or if you are building a PoC or a simple project for yourself this project layout is an overkill. Start with something really simple instead (a single `main.go` file and `go.mod` is more than enough).`** As your project grows keep in mind that it'll be important to make sure your code is well structured otherwise you'll end up with a messy code with lots of hidden dependencies and global state. When you have more people working on the project you'll need even more structure. That's when it's important to introduce a common way to manage packages/libraries. When you have an open source project or when you know other projects import the code from your project repository that's when it's important to have private (aka `internal`) packages and code. Clone the repository, keep what you need and delete everything else! Just because it's there it doesn't mean you have to use it all. None of these patterns are used in every single project. Even the `vendor` pattern is not universal.
+Если вы пытаетесь изучить Golang или собрать маленький обучающий проект для личного пользования, данный макет будет явным перебором. Стоит начать с чего-нибудь действительно простого (одного файла `main.go` будет достаточно). Как только ваш проект начнет расти, стоит задуматься о важности содержания кода в структурированном состоянии, чтобы в конечном итоге не получить грязный код с множеством скрытых зависимостей и global state. А когда над проектом начнут работать другие люди - понадобится еще большая структуризация. В этот момент важно определить стандартный путь организации пакетов/библиотек. Если вы разрабатываете проект с открытым исходным кодом или знаете, что вашим кодом будут пользоваться при разработке других проектов, необходимо понимать важность создания личных, внутренних (или `internal`) пакетов и кода. Склонируйте репозиторий, пользуйтесь тем, что действительно нужно,и удалите всё остальное! Наличие этого "всего остального" вовсе не означает, что это обязательно использовать. Заметьте, что ни один из этих шаблонов не обязан быть использован в абсолютно каждом проекте. Даже `vendor` не может быть универсален во всех случаях.
 
-With Go 1.14 [`Go Modules`](https://github.com/golang/go/wiki/Modules) are finally ready for production. Use [`Go Modules`](https://blog.golang.org/using-go-modules) unless you have a specific reason not to use them and if you do then you don’t need to worry about $GOPATH and where you put your project. The basic `go.mod` file in the repo assumes your project is hosted on GitHub, but it's not a requirement. The module path can be anything though the first module path component should have a dot in its name (the current version of Go doesn't enforce it anymore, but if you are using slightly older versions don't be surprised if your builds fail without it). See Issues [`37554`](https://github.com/golang/go/issues/37554) and [`32819`](https://github.com/golang/go/issues/32819) if you want to know more about it.
+С выходом обновления Golang 1.14, [`Go Modules`](https://github.com/golang/go/wiki/Modules) стали наконец-то доступны для использования. Применяйте [`Go Modules`](https://blog.golang.org/using-go-modules) везде, пока не столкнётесь с веской причиной отказаться от них, и если такой момент всё же настанет - вам больше не придётся волноваться о значении переменной окружения $GOPATH и месте, где вы размещаете свой проект. Базовый `go.mod` файл в репозитории показывает, что ваш проект размещён на GitHub, однако он не является обязательным. Путь к модулю может быть любым, при условии, что первый компонент пути должен содержать точку в имени (текущая версия Golang больше не требует этого, но если вы используете достаточно устаревшие версии - не стоит удивляться, что ваши сборки могу перестать работать). Ознакомьтесь с проблемами: [`37554`](https://github.com/golang/go/issues/37554) и [`32819`](https://github.com/golang/go/issues/32819) если хотите узнать об этом больше.
 
-This project layout is intentionally generic and it doesn't try to impose a specific Go package structure.
+Этот шаблон организации проекта намеренно сделан обобщенным, и не является примером структуры какого-то конкретного пакета Golang.
 
-This is a community effort. Open an issue if you see a new pattern or if you think one of the existing patterns needs to be updated.
+Этот репозиторий открыт к усилиям сообщества. Создайте заявку о проблеме, если вы нашли новый шаблон или считаете, что один из существующих шаблонов необходимо обновить.
 
-If you need help with naming, formatting and style start by running [`gofmt`](https://golang.org/cmd/gofmt/) and [`golint`](https://github.com/golang/lint). Also make sure to read these Go code style guidelines and recommendations:
+Если вам нужна помощь в наименовании, форматировании или стилизации кода - начните с [`gofmt`](https://golang.org/cmd/gofmt/) и [`golint`](https://github.com/golang/lint). Также обязательно прочтите эти руководства по стилизации кода Golang и рекомендации:
 * https://talks.golang.org/2014/names.slide
 * https://golang.org/doc/effective_go.html#names
 * https://blog.golang.org/package-names
 * https://github.com/golang/go/wiki/CodeReviewComments
-* [Style guideline for Go packages](https://rakyll.org/style-packages) (rakyll/JBD)
+* [Руководство по стилизации кода для пакетов Golang](https://rakyll.org/style-packages) (rakyll/JBD)
 
-See [`Go Project Layout`](https://medium.com/golang-learn/go-project-layout-e5213cdcfaa2) for additional background information.
+Обратите внимание на [`Шаблон проекта Golang`](https://medium.com/golang-learn/go-project-layout-e5213cdcfaa2) для получения дополнительной информации.
 
-More about naming and organizing packages as well as other code structure recommendations:
+Еще больше про наименование и организацию пакетов, а так же про структуру кода можно узнать здесь:
 * [GopherCon EU 2018: Peter Bourgon - Best Practices for Industrial Programming](https://www.youtube.com/watch?v=PTE4VJIdHPg)
 * [GopherCon Russia 2018: Ashley McNamara + Brian Ketelsen - Go best practices.](https://www.youtube.com/watch?v=MzTcsI6tn-0)
 * [GopherCon 2017: Edward Muller - Go Anti-Patterns](https://www.youtube.com/watch?v=ltqV6pDKZD8)
 * [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0)
 
-A Chinese post about Package-Oriented-Design guidelines and Architecture layer
+Пост о руководствах по пакетноориентированному дизайну и макетам архитектур
 * [面向包的设计和架构分层](https://github.com/danceyoung/paper-code/blob/master/package-oriented-design/packageorienteddesign.md)
 
-## Go Directories
+## Директории Go
 
 ### `/cmd`
 
-Main applications for this project.
+Основные приложения проекта.
 
-The directory name for each application should match the name of the executable you want to have (e.g., `/cmd/myapp`).
+Имя директории для каждого приложения должно совпадать с именем исполняемого файла, который вы хотите собрать (например, `/cmd/myapp`).
 
-Don't put a lot of code in the application directory. If you think the code can be imported and used in other projects, then it should live in the `/pkg` directory. If the code is not reusable or if you don't want others to reuse it, put that code in the `/internal` directory. You'll be surprised what others will do, so be explicit about your intentions!
+Не стоит располагать в этой директории большие объёмы кода. Если вы предполагаете дальнейшее использование кода в других проектах, вам стоит хранить его в директории `/pkg` в корне проекта. Если же код не должен быть переиспользован где-то еще - ему самое место в директории `/internal` в корне проекта. Вы будете удивлены тем, что другие люди могут сделать, поэтому будьте уверены в своих намерениях!
 
-It's common to have a small `main` function that imports and invokes the code from the `/internal` and `/pkg` directories and nothing else.
+Самой распространнёной практикой является использование маленькой `main` функции, которая импортирует и вызывает весь необходимый код из директорий `/internal` и `/pkg` и никаких других.
 
-See the [`/cmd`](cmd/README.md) directory for examples.
+Ознакомьтесь с директорией [`/cmd`](cmd/README.md) для примера.
 
 ### `/internal`
 
-Private application and library code. This is the code you don't want others importing in their applications or libraries. Note that this layout pattern is enforced by the Go compiler itself. See the Go 1.4 [`release notes`](https://golang.org/doc/go1.4#internalpackages) for more details. Note that you are not limited to the top level `internal` directory. You can have more than one `internal` directory at any level of your project tree.
+Внутренний код приложения и библиотек. Это код, который не должен быть применен в других приложениях и библиотеках. Стоит отметить, что этот шаблон навязан самим компилятором Golang. Ознакомьтесь с [`release notes`](https://golang.org/doc/go1.4#internalpackages)  Go 1.4. Также, вы вольны использовать `internal` директорию на разных уровнях своего проекта.
 
-You can optionally add a bit of extra structure to your internal packages to separate your shared and non-shared internal code. It's not required (especially for smaller projects), but it's nice to have visual clues showing the intended package use. Your actual application code can go in the `/internal/app` directory (e.g., `/internal/app/myapp`) and the code shared by those apps in the `/internal/pkg` directory (e.g., `/internal/pkg/myprivlib`).
+Вы можете добавить дополнительное структурирование, чтобы разделить открытую и закрытую части вашего внутреннего кода. Такой подход не является необходимым, особенно для маленьких проектов, но позволяет сразу визуально оценить применение кода. Код самого приложения может находиться в директории `/internal/app` (например, `/internal/app/myapp`) а код, который это приложение использует - в директории `/internal/pkg` (например, `/internal/pkg/myprivlib`).
 
 ### `/pkg`
 
-Library code that's ok to use by external applications (e.g., `/pkg/mypubliclib`). Other projects will import these libraries expecting them to work, so think twice before you put something here :-) Note that the `internal` directory is a better way to ensure your private packages are not importable because it's enforced by Go. The `/pkg` directory is still a good way to explicitly communicate that the code in that directory is safe for use by others. The [`I'll take pkg over internal`](https://travisjeffery.com/b/2019/11/i-ll-take-pkg-over-internal/) blog post by Travis Jeffery provides a good overview of the `pkg` and `internal` directories and when it might make sense to use them.
+Код библиотек, пригодных для использования в сторонних приложениях. (например, `/pkg/mypubliclib`). Другие проекты будут импортировать эти библиотеки, ожидая их автономной работы, поэтому стоит подумать дважды, прежде чем класть сюда какой-нибудь код :-) Заметьте, что использование директории `internal`  - более оптимальный способ не дать импортировать внутренние пакеты, потому что это обеспечит сам Golang. Директория `/pkg` - всё еще хороший путь дать понять, что код в этой директории могут безопасно использовать другие. Пост [`I'll take pkg over internal`](https://travisjeffery.com/b/2019/11/i-ll-take-pkg-over-internal/) в блоге Трэвиса Джеффери предоставляет хороший обзор директорий `pkg` и `internal` и когда есть смысл их использовать.
 
-It's also a way to group Go code in one place when your root directory contains lots of non-Go components and directories making it easier to run various Go tools (as mentioned in these talks: [`Best Practices for Industrial Programming`](https://www.youtube.com/watch?v=PTE4VJIdHPg) from GopherCon EU 2018, [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0) and [GoLab 2018 - Massimiliano Pippi - Project layout patterns in Go](https://www.youtube.com/watch?v=3gQa1LWwuzk)).
+Существует возможность группировать код на Golang в одном месте, когда ваша корневая директория содержит множество не относящихся к Go компонентов и директорий, что позволит облегчить работу с разными инструментами Go (как упомянуто в этих разговорах: [`Best Practices for Industrial Programming`](https://www.youtube.com/watch?v=PTE4VJIdHPg) с GopherCon EU 2018, [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0) и [GoLab 2018 - Massimiliano Pippi - Project layout patterns in Go](https://www.youtube.com/watch?v=3gQa1LWwuzk)).
 
-See the [`/pkg`](pkg/README.md) directory if you want to see which popular Go repos use this project layout pattern. This is a common layout pattern, but it's not universally accepted and some in the Go community don't recommend it.
+Ознакомьтесь с директорией [`/pkg`](pkg/README.md), если хотите увидеть, какие популярные репозитории используют такой шаблон организации проекта. Несмотря на его распространенность, он не был принят всеми, а некоторые в сообществе Go и вовсе не рекомендует его использовать.
 
-It's ok not to use it if your app project is really small and where an extra level of nesting doesn't add much value (unless you really want to :-)). Think about it when it's getting big enough and your root directory gets pretty busy (especially if you have a lot of non-Go app components).
-
-The `pkg` directory origins: The old Go source code used to use `pkg` for its packages and then various Go projects in the community started copying the pattern (see [`this`](https://twitter.com/bradfitz/status/1039512487538970624) Brad Fitzpatrick's tweet for more context).
+Вы можете не использовать эту директорию, если проект совсем небольшой и добавление нового уровня вложенности не имеет практического смысла (разве что вы сами этого не хотите :-)). Подумайте об этом, когда ваша корневая директория начинает слишком сильно разрастаться, особенно, если у вас много компонентов, написанных не на Go.
 
 ### `/vendor`
 
-Application dependencies (managed manually or by your favorite dependency management tool like the new built-in [`Go Modules`](https://github.com/golang/go/wiki/Modules) feature). The `go mod vendor` command will create the `/vendor` directory for you. Note that you might need to add the `-mod=vendor` flag to your `go build` command if you are not using Go 1.14 where it's on by default.
+Зависимости приложений, управляемые вручную или с использованием вашей любимой системы управления зависимостями, вроде новых встроенных [`Go Modules`](https://github.com/golang/go/wiki/Modules)). Команда `go mod vendor` создаст для вас директорию `/vendor`. Заметьте, что вам возможно придётся добавить флаг `-mod=vendor` к команде `go build`, если вы используете версию, отличную от Go 1.14, где такой флаг выставлен по-умолчанию.
 
-Don't commit your application dependencies if you are building a library.
+Не стоит отправлять зависимости вашего приложения в репозиторий, если собираетесь создавать библиотеку.
 
-Note that since [`1.13`](https://golang.org/doc/go1.13#modules) Go also enabled the module proxy feature (using [`https://proxy.golang.org`](https://proxy.golang.org) as their module proxy server by default). Read more about it [`here`](https://blog.golang.org/module-mirror-launch) to see if it fits all of your requirements and constraints. If it does, then you won't need the `vendor` directory at all.
+Стоит отметить, что с версии [`1.13`](https://golang.org/doc/go1.13#modules) Go добавил возможность проксирования модулей (с использованием [`https://proxy.golang.org`](https://proxy.golang.org) как прокси-сервера по-умолчанию). [`Здесь`](https://blog.golang.org/module-mirror-launch) можно побольше узнать про эту возможность, чтобы убедиться, что она удовлетворяет вашим необходимостям и ограничениям. Если это так - использование директории `vendor` не требуется вовсе.
 
-## Service Application Directories
+## Директории приложений-сервисов
 
 ### `/api`
 
-OpenAPI/Swagger specs, JSON schema files, protocol definition files.
+Спецификации OpenAPI/Swagger, файлы JSON schema, файлы определения протоколов.
 
-See the [`/api`](api/README.md) directory for examples.
+Ознакомьтесь с директорией [`/api`](api/README.md) для примеров.
 
-## Web Application Directories
+## Директории Веб-приложений
 
 ### `/web`
 
-Web application specific components: static web assets, server side templates and SPAs.
+Специальные компоненты для веб-приложений: статические веб-ресурсы, серверные шаблоны и одностраничные приложения.
 
-## Common Application Directories
+## Распространенные директории
 
 ### `/configs`
 
-Configuration file templates or default configs.
+Шаблоны файлов конфигураций и файлы настроек по-умолчанию.
 
-Put your `confd` or `consul-template` template files here.
+Положите файлы конфигураций `confd` или `consul-template` сюда.
 
 ### `/init`
 
-System init (systemd, upstart, sysv) and process manager/supervisor (runit, supervisord) configs.
+Файлы конфигураций для процессов инициализации системы (systemd, upstart, sysv) и менеджеров процессов (runit, supervisord).
 
 ### `/scripts`
 
-Scripts to perform various build, install, analysis, etc operations.
+Скрипты для сборки, установки, анализа и прочих операций над проектом.
 
-These scripts keep the root level Makefile small and simple (e.g., [`https://github.com/hashicorp/terraform/blob/master/Makefile`](https://github.com/hashicorp/terraform/blob/master/Makefile)).
+Эти скрипты позволяют оставить основной Makefile небольшим и простым (например, [`https://github.com/hashicorp/terraform/blob/master/Makefile`](https://github.com/hashicorp/terraform/blob/master/Makefile)).
 
-See the [`/scripts`](scripts/README.md) directory for examples.
+Ознакомьтесь с директорией [`/scripts`](scripts/README.md) для примеров.
 
 ### `/build`
 
-Packaging and Continuous Integration.
+Сборка и непрерывная интеграция (Continuous Integration, CI).
 
-Put your cloud (AMI), container (Docker), OS (deb, rpm, pkg) package configurations and scripts in the `/build/package` directory.
+Поместите файлы конфигурации и скрипты облака (AMI), контейнера (Docker), пакетов (deb, rpm, pkg) в директорию `/build/package`.
 
-Put your CI (travis, circle, drone) configurations and scripts in the `/build/ci` directory. Note that some of the CI tools (e.g., Travis CI) are very picky about the location of their config files. Try putting the config files in the `/build/ci` directory linking them to the location where the CI tools expect them (when possible).
+Поместите ваши файлы конфигурации CI (travis, circle, drone) и скрипты в директорию `/build/ci`. Заметьте, что некоторые инструменты CI (например, Travis CI) очень требовательны к расположению их конфигурационных файлов. Попробуйте поместить их в директорию `/build/ci` создав ссылку на них в месте, где их ожидают найти инструменты Go (если возможно).
 
 ### `/deployments`
 
-IaaS, PaaS, system and container orchestration deployment configurations and templates (docker-compose, kubernetes/helm, mesos, terraform, bosh). Note that in some repos (especially apps deployed with kubernetes) this directory is called `/deploy`.
+Шаблоны и файлы конфигураций систем оркестраций IaaS, PaaS, операционных систем и контейнеров (docker-compose, kubernetes/helm, mesos, terraform, bosh). Отметьте, что в некоторых репозиториях, особенно в приложениях, развернутых с использованием Kubernetes, эта директория называется `/deploy`.
 
 ### `/test`
 
-Additional external test apps and test data. Feel free to structure the `/test` directory anyway you want. For bigger projects it makes sense to have a data subdirectory. For example, you can have `/test/data` or `/test/testdata` if you need Go to ignore what's in that directory. Note that Go will also ignore directories or files that begin with "." or "_", so you have more flexibility in terms of how you name your test data directory.
+Дополнительные внешние приложения и данные для тестирования. Вы вольны организовывать структуру директории `/test` так, как вам угодно. Для больших проектов имеет смысл создавать вложенную директорию с данными для тестов. Например,`/test/data` или `/test/testdata`, если вы хотите, чтобы Go игнорировал находящиеся там файлы. Отметьте, что Go будет также игнорировать файлы, путь к которым начинается с "." или "_", что предоставляет вам гибкость в наименовании вашей папки с тестами.
 
-See the [`/test`](test/README.md) directory for examples.
+Ознакомьтесь с директорией [`/test`](test/README.md) для примеров.
 
-## Other Directories
+## Другие Директории
 
 ### `/docs`
 
-Design and user documents (in addition to your godoc generated documentation).
+Документы пользователей и дизайна (в дополнение к автоматической документации godoc).
 
-See the [`/docs`](docs/README.md) directory for examples.
+Ознакомьтесь с директорией [`/docs`](docs/README.md) для примеров.
 
 ### `/tools`
 
-Supporting tools for this project. Note that these tools can import code from the `/pkg` and `/internal` directories.
+Инструменты поддержки проекта. Отметьте, что эти инструменты могут импортировать код из директорий `/pkg` и `/internal`.
 
-See the [`/tools`](tools/README.md) directory for examples.
+Ознакомьтесь с директорией [`/tools`](tools/README.md) для примеров.
 
 ### `/examples`
 
-Examples for your applications and/or public libraries.
+Примеры ваших приложений и/или библиотек.
 
-See the [`/examples`](examples/README.md) directory for examples.
+Ознакомьтесь с директорией [`/examples`](examples/README.md) для примеров.
 
 ### `/third_party`
 
-External helper tools, forked code and other 3rd party utilities (e.g., Swagger UI).
+Внешние вспомогательные инструменты, ответвления кода и другие сторонние утилиты (например, Swagger UI).
 
 ### `/githooks`
 
@@ -167,41 +166,37 @@ Git hooks.
 
 ### `/assets`
 
-Other assets to go along with your repository (images, logos, etc).
+Другие ресурсы, необходимые для работы (картинки, логотипы и т.д.)
 
 ### `/website`
 
-This is the place to put your project's website data if you are not using GitHub pages.
+Здесь можно разделить файлы для вебсайта вашего проекта, если вы не используете `GitHub pages`.
 
-See the [`/website`](website/README.md) directory for examples.
+Ознакомьтесь с директорией [`/website`](website/README.md) для примеров.
 
-## Directories You Shouldn't Have
+## Директории, которые не стоит размещать у себя в проекте
 
 ### `/src`
 
-Some Go projects do have a `src` folder, but it usually happens when the devs came from the Java world where it's a common pattern. If you can help yourself try not to adopt this Java pattern. You really don't want your Go code or Go projects to look like Java :-)
+Некоторые проекты на Go имеют директорию `src`, но это обычно происходит, когда разработкой занялся человек, пришедший из мира Java, где такой подход весьма распространен. Постарайтесь не использовать его в разработке на Golang, если не хотите, чтобы ваш код или проект выглядел, будто написан на Java :-).
 
-Don't confuse the project level `/src` directory with the `/src` directory Go uses for its workspaces as described in [`How to Write Go Code`](https://golang.org/doc/code.html). The `$GOPATH` environment variable points to your (current) workspace (by default it points to `$HOME/go` on non-windows systems). This workspace includes the top level `/pkg`, `/bin` and `/src` directories. Your actual project ends up being a sub-directory under `/src`, so if you have the `/src` directory in your project the project path will look like this: `/some/path/to/workspace/src/your_project/src/your_code.go`. Note that with Go 1.11 it's possible to have your project outside of your `GOPATH`, but it still doesn't mean it's a good idea to use this layout pattern.
+Не путайте директорию уровня проекта `/src` с директорией `/src`, которую Go использует для своих рабочих пространств, как это описано в [`How to Write Go Code`](https://golang.org/doc/code.html). Переменная окружения `$GOPATH` указывает на ваше текущее рабочее пространство (по-умолчанию - `$HOME/go` на системах под управлением ОС, отличной от Windows). Это рабочее пространство включает высокоуровневые директории `/pkg`, `/bin` и `/src`. Ваш проект в свою очередь находится во вложенной в `/src` директории, поэтому если вы имеете директорию `/src` внутри вашего проекта, путь к нему будет выглядеть примерно так: `/some/path/to/workspace/src/your_project/src/your_code.go`. Отметьте, что в версиях после Go 1.11 возможно хранить проект отдельно от локации, описанной в `GOPATH`, но это всё еще не значит, что применять этот Java-шаблон - хорошая идея.
 
 
 ## Badges
 
-* [Go Report Card](https://goreportcard.com/) - It will scan your code with `gofmt`, `go vet`, `gocyclo`, `golint`, `ineffassign`, `license` and `misspell`. Replace `github.com/golang-standards/project-layout` with your project reference.
+* [Go Report Card](https://goreportcard.com/) - Просканирует ваш код с помощью `gofmt`, `go vet`, `gocyclo`, `golint`, `ineffassign`, `license` и `misspell`. Замените `github.com/golang-standards/project-layout` на ссылку на ваш проект.
 
-    [![Go Report Card](https://goreportcard.com/badge/github.com/golang-standards/project-layout?style=flat-square)](https://goreportcard.com/report/github.com/golang-standards/project-layout)
+  [![Go Report Card](https://goreportcard.com/badge/github.com/golang-standards/project-layout?style=flat-square)](https://goreportcard.com/report/github.com/golang-standards/project-layout)
 
-* ~~[GoDoc](http://godoc.org) - It will provide online version of your GoDoc generated documentation. Change the link to point to your project.~~
+* [GoDoc](http://godoc.org) - Предоставит онлайн версию вашей сгенерированной GoDoc документации
 
-    [![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/golang-standards/project-layout)
+  [![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/golang-standards/project-layout)
 
 * [Pkg.go.dev](https://pkg.go.dev) - Pkg.go.dev is a new destination for Go discovery & docs. You can create a badge using the [badge generation tool](https://pkg.go.dev/badge).
 
-    [![PkgGoDev](https://pkg.go.dev/badge/github.com/golang-standards/project-layout)](https://pkg.go.dev/github.com/golang-standards/project-layout)
+  [![PkgGoDev](https://pkg.go.dev/badge/github.com/golang-standards/project-layout)](https://pkg.go.dev/github.com/golang-standards/project-layout)
 
-* Release - It will show the latest release number for your project. Change the github link to point to your project.
+* Release - Покажет версию последнего релиза вашего проекта.
 
-    [![Release](https://img.shields.io/github/release/golang-standards/project-layout.svg?style=flat-square)](https://github.com/golang-standards/project-layout/releases/latest)
-
-## Notes
-
-A more opinionated project template with sample/reusable configs, scripts and code is a WIP.
+  [![Release](https://img.shields.io/github/release/golang-standards/project-layout.svg?style=flat-square)](https://github.com/golang-standards/project-layout/releases/latest)
